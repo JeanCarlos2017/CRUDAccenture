@@ -47,7 +47,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	public Usuario buscausuario(int idUsuario) {
+	public Usuario buscaUsuario(int idUsuario) {
 		if(this.usuarioRepository.existsById(idUsuario)) {
 			return this.usuarioRepository.findById(idUsuario).get();
 		}else {

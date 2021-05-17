@@ -11,7 +11,7 @@ public interface UsuarioService {
 	
 	void deletaUsuario(int idUsuario);
 	
-	Usuario buscausuario(int idUsuario);
+	Usuario buscaUsuario(int idUsuario);
 	
 	List<Usuario> filtro(String nome, String email);
 	
