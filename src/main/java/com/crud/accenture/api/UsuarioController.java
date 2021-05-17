@@ -7,42 +7,58 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.accenture.domain.model.Usuario;
-import com.crud.accenture.domain.repository.UsuarioCustomRepository;
-import com.crud.accenture.domain.repository.UsuarioRepository;
+import com.crud.accenture.domain.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-	private UsuarioRepository usuarioRepository;
-	private UsuarioCustomRepository usuarioCustomRepository;
+	private UsuarioService usuarioService;
 	
-	public UsuarioController(UsuarioRepository usuarioRepository, UsuarioCustomRepository usuarioCustomRepository) {
-		this.usuarioRepository = usuarioRepository;
-		this.usuarioCustomRepository = usuarioCustomRepository;
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 
 	@PostMapping
-	public ResponseEntity<Usuario> cadastraUsuario(@Valid @RequestBody Usuario usuario){
-		return new ResponseEntity<Usuario>(this.usuarioRepository.save(usuario), HttpStatus.CREATED);
+	public ResponseEntity<Usuario> cadastraUsuario(@Valid @RequestBody Usuario usuario) {
+		return new ResponseEntity<Usuario>(this.usuarioService.cadastraUsuario(usuario), HttpStatus.CREATED);
+	}
+
+	@GetMapping("/filter/custom")
+	public ResponseEntity<List<Usuario>> findPersonByCustom(@RequestParam(value = "nome", required = false) String nome,
+			@RequestParam(value = "email", required = false) String email) {
+		return new ResponseEntity<List<Usuario>>(
+				this.usuarioService.filtro(nome, email) 
+				 .stream()
+				 .collect(Collectors.toList()), HttpStatus.OK
+		);
 	}
 	
-	 @GetMapping("/filter/custom")
-	    public List<Usuario> findPersonByCustom(
-	            @RequestParam(value = "nome", required = false) String nome,
-	            @RequestParam(value = "email", required = false) String email
-	    ) {
-	        return this.usuarioCustomRepository.findUsuario(nome, email)
-	                .stream()
-	               .collect(Collectors.toList());
-	    }
-
+	@GetMapping("/findById/{id_usuario}")
+	public ResponseEntity<Usuario> cadastraUsuario(@Valid @PathVariable int id_usuario) {
+		return new ResponseEntity<Usuario>(this.usuarioService.buscaUsuario(id_usuario), HttpStatus.OK);
+	}
 	
+	@PutMapping
+	public ResponseEntity<Usuario> alteraUsuario(@Valid @RequestBody Usuario usuario) {
+		return new ResponseEntity<Usuario>(this.usuarioService.alteraUsuario(usuario), HttpStatus.ACCEPTED);
+	}
+	
+	@DeleteMapping("/{id_usuario}")
+	public ResponseEntity<Void> deleteUsuario(@Valid @PathVariable int id_usuario) {
+		this.usuarioService.deletaUsuario(id_usuario);
+		return ResponseEntity.noContent().build();
+	}
+	
+
 }
