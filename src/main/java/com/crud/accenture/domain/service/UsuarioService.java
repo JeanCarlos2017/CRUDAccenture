@@ -9,11 +9,11 @@ public interface UsuarioService {
 	
 	Usuario alteraUsuario(Usuario usuario);
 	
-	boolean deletaUsuario(int idusuario);
+	void deletaUsuario(int idUsuario);
 	
 	Usuario buscausuario(int idUsuario);
 	
 	List<Usuario> filtro(String nome, String email);
 	
-	Usuario login(Usuario usuario);
+	Usuario login(String login, String senha);
 }
