@@ -55,7 +55,6 @@ public class UsuarioCustomRepository {
 	}
 	
 	private void resetQueryCustom() {
-		System.out.println("Query: "+this.queryCustom);
 		this.queryCustom= UsuarioCustomRepository.baseQuery;		
 	}
 
