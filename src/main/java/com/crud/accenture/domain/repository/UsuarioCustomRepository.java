@@ -12,7 +12,7 @@ import com.crud.accenture.domain.model.Usuario;
 @Repository
 public class UsuarioCustomRepository {
 	private final EntityManager entityManager;
-	private static final String baseQuery= "select U from Usuario as U where ";
+	private static final String baseQuery= "select U from Usuario as U ";
 	private String queryCustom;
 	private String operatorQueryCustom;
 	private TypedQuery<Usuario> queryEntityManager;
@@ -21,6 +21,7 @@ public class UsuarioCustomRepository {
 	public UsuarioCustomRepository(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		this.queryCustom = UsuarioCustomRepository.baseQuery;
+		this.operatorQueryCustom= "where ";
 	}
 	
 	public List<Usuario> findUsuario(String nome, String email){
@@ -37,7 +38,7 @@ public class UsuarioCustomRepository {
 
 	private void tryAppendNameToQuery(String nome) {
 		if (nome != null) {
-			this.queryCustom+= "U.nome = :nome ";
+			this.queryCustom+= this.operatorQueryCustom + "U.nome = :nome ";
 			this.operatorQueryCustom= " and ";
 		}
 	}
@@ -55,7 +56,8 @@ public class UsuarioCustomRepository {
 	}
 	
 	private void resetQueryCustom() {
-		this.queryCustom= UsuarioCustomRepository.baseQuery;		
+		this.queryCustom= UsuarioCustomRepository.baseQuery;	
+		this.operatorQueryCustom= "where ";
 	}
 
 	private void setParamaterQuery(String nome, String email) {
