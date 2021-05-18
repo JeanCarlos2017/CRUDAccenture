@@ -10,22 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity @Table(name = "USUARIO")
 public class Usuario {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro= new java.sql.Date(System.currentTimeMillis());
 	
-	@Column(length = 30)
+	@Column(length = 30) @NotNull
 	private String nome;
 	
-	@Column(length = 15, unique = true)
+	@Column(length = 15, unique = true) @NotNull
 	private String login;
 	
-	@Column(length = 10)
+	@Column(length = 10) @NotNull
 	private String senha;
 	
 	@Column(length = 11)
@@ -34,10 +36,10 @@ public class Usuario {
 	@Column(length = 100) 
 	private String email;
 	
-	@Column(length = 1)
+	@Column(length = 1) @NotNull
 	private String perfil;
 	
-	@Column(length = 1)
+	@Column(length = 1) @NotNull
 	private String status;
 
 	public Usuario() {}
