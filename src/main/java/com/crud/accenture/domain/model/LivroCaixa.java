@@ -8,8 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity @Table(name = "LIVRO_CAIXA")
 public class LivroCaixa {
@@ -27,6 +32,11 @@ public class LivroCaixa {
 	
 	@NotNull 
 	private BigDecimal valor;
+	
+	
+	@ManyToOne @JoinColumn(name= "id_cliente")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Cliente cliente;
 	
 	public LivroCaixa() {}
 	
@@ -70,6 +80,14 @@ public class LivroCaixa {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	
