@@ -62,14 +62,30 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public Usuario login(String login, String senha) {
-		Optional<Usuario> loginUsuario= this.usuarioRepository.findByLoginAndSenha(login, senha);
+		Optional<Usuario> loginUsuario= this.loginUsuario(login, senha);
+		return this.verificaSucessoLogin(loginUsuario);
+	}
+	
+	private Optional<Usuario> loginUsuario(String login, String senha) {
+		return this.usuarioRepository.findByLoginAndSenha(login, senha);
+	}
+	
+	private Usuario verificaSucessoLogin(Optional<Usuario> loginUsuario) {
 		if(loginUsuario.isPresent()) {
-			return loginUsuario.get();
+			return verificaUsuarioAtivo(loginUsuario.get());
 		}else {
 			throw new ResourceNotFoundException("Login e/ou senha incorreto");
 		}
 	}
-	
+
+	private Usuario verificaUsuarioAtivo(Usuario usuario) {
+		if(usuario.getStatus() == "A") {
+			return usuario;
+		}else {
+			throw new ResourceNotFoundException("Usuário está inativo por favor entre em contato com a central!");
+		}
+	}
+
 	private Usuario throwIdNotFound() {
 		throw new ResourceNotFoundException("Id do usuário não  encontrado, por favor tente novamente");
 	}
