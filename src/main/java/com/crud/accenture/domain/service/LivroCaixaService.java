@@ -1,7 +1,5 @@
 package com.crud.accenture.domain.service;
 
-import java.util.List;
-
 import com.crud.accenture.domain.model.LivroCaixa;
 
 public interface LivroCaixaService {
@@ -14,6 +12,6 @@ public interface LivroCaixaService {
 	
 	LivroCaixa findById(int idLivroCaixa);
 	
-	List<LivroCaixa> findByIdCliente(int idCliente);
+	
 	
 }

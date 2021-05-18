@@ -1,7 +1,5 @@
 package com.crud.accenture.domain.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.crud.accenture.api.exception.ResourceNotFoundException;
@@ -12,8 +10,8 @@ import com.crud.accenture.domain.repository.LivroCaixaRepository;
 public class LivroCaixaServiceImpl implements LivroCaixaService {
 	private LivroCaixaRepository livroCaixaRepository;
 	
-	
-	public LivroCaixaServiceImpl(LivroCaixaRepository livroCaixaRepository) {
+	public LivroCaixaServiceImpl(LivroCaixaRepository livroCaixaRepository, ClienteService clienteService) {
+		super();
 		this.livroCaixaRepository = livroCaixaRepository;
 	}
 
@@ -52,10 +50,5 @@ public class LivroCaixaServiceImpl implements LivroCaixaService {
 		}
 	}
 
-	@Override
-	public List<LivroCaixa> findByIdCliente(int idCliente) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }
