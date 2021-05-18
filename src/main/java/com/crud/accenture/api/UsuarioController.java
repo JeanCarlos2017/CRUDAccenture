@@ -60,5 +60,11 @@ public class UsuarioController {
 		return ResponseEntity.noContent().build();
 	}
 	
-
+	
+	@GetMapping("/login")
+	public ResponseEntity<Usuario> login(@RequestParam(value = "login", required = false) String login,
+			@RequestParam(value = "senha", required = false) String senha) {
+		return new ResponseEntity<Usuario>(this.usuarioService.login(login, senha), HttpStatus.OK);
+	}
+	
 }
