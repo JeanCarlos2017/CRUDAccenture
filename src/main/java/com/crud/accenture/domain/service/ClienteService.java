@@ -5,13 +5,13 @@ import java.util.List;
 import com.crud.accenture.domain.model.Cliente;
 
 public interface ClienteService {
-	Cliente cadastroCliente(Cliente cliente);
+	Cliente cadastrarCliente(Cliente cliente);
 	
-	Cliente alteraCliente(Cliente cliente);
+	Cliente alterarCliente(Cliente cliente);
 	
-	void deletaCliente(int idCliente);
+	void deletarCliente(int idCliente);
 	
-	Cliente buscaCliente(int idCliente);
+	Cliente buscarCliente(int idCliente);
 	
-	List<Cliente> filtroDeCliente(String nome, String cpfCnpj, String cidade, String uf);
+	List<Cliente> filtrarDeCliente(String nome, String cpfCnpj, String cidade, String uf);
 }

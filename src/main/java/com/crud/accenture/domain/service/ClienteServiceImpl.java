@@ -18,12 +18,12 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public Cliente cadastroCliente(Cliente cliente) {
-		return this.cadastroCliente(cliente);
+	public Cliente cadastrarCliente(Cliente cliente) {
+		return this.clienteRepository.save(cliente);
 	}
 
 	@Override
-	public Cliente alteraCliente(Cliente cliente) {
+	public Cliente alterarCliente(Cliente cliente) {
 		if(this.clienteRepository.existsById(cliente.getId())) {
 			return this.clienteRepository.save(cliente);
 		}else {
@@ -36,7 +36,7 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 	
 	@Override
-	public Cliente buscaCliente(int idCliente) {
+	public Cliente buscarCliente(int idCliente) {
 		Optional<Cliente> clienteById= this.clienteRepository.findById(idCliente);
 		if(clienteById.isPresent()) {
 			return clienteById.get();
@@ -46,7 +46,7 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 	
 	@Override
-	public void deletaCliente(int idCliente) {
+	public void deletarCliente(int idCliente) {
 		if(this.clienteRepository.existsById(idCliente)) {
 			this.clienteRepository.deleteById(idCliente);
 		}else {
@@ -55,7 +55,7 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public List<Cliente> filtroDeCliente(String nome, String cpfCnpj, String cidade, String uf) {
+	public List<Cliente> filtrarDeCliente(String nome, String cpfCnpj, String cidade, String uf) {
 		// TODO Auto-generated method stub
 		return null;
 	}
