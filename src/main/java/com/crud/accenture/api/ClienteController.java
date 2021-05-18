@@ -1,5 +1,8 @@
 package com.crud.accenture.api;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.accenture.domain.model.Cliente;
@@ -45,5 +49,19 @@ public class ClienteController {
 	public ResponseEntity<Void> deletarClientePorId(@PathVariable int id_cliente){
 		this.clienteService.deletarCliente(id_cliente);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/filter/custom")
+	public ResponseEntity<List<Cliente>> findPersonByCustom(
+			@RequestParam(value = "nome", required = false) String nome,
+			@RequestParam(value = "cpfCnpj", required = false) String cpfCnpj,
+			@RequestParam(value = "cidade", required = false) String cidade,
+			@RequestParam(value = "uf", required = false) String uf
+		) {
+		return new ResponseEntity<List<Cliente>>(
+				this.clienteService.filtrarCliente(nome, cpfCnpj, cidade, uf)
+				 .stream()
+				 .collect(Collectors.toList()), HttpStatus.OK
+		);
 	}
 }
