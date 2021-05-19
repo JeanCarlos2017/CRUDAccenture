@@ -2,9 +2,7 @@ package com.crud.accenture.dto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.crud.accenture.domain.model.Cliente;
 import com.crud.accenture.domain.model.LivroCaixa;
@@ -34,12 +32,7 @@ public class ClienteDTO {
 	}
 	
 	private void setSaldoCliente() {
-		this.ordenaLivroCaixaPorData();
 		this.setSaldoDeTodosLivrosCaixa();
-	}
-
-	private void ordenaLivroCaixaPorData() {
-		this.contabil.sort( (livro1, livro2) -> livro1.getDataLancamento().compareTo(livro2.getDataLancamento()));
 	}
 
 	private void setSaldoDeTodosLivrosCaixa() {
@@ -67,11 +60,6 @@ public class ClienteDTO {
 		return saldo;
 	}
 
-	public void filtraOsLivrosPorintervaloDeData(Date dataInicial, Date dataFinal) {
-		this.contabil = this.contabil.stream()
-								  .filter(livro -> livro.estaDentroDoIntervalo(dataInicial, dataFinal))
-								  .collect(Collectors.toList());
-	}
 
 	//getters and setters
 	public int getId() {

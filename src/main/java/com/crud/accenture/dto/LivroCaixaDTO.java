@@ -51,9 +51,6 @@ public class LivroCaixaDTO {
 		return this.tipo == LivroCaixaDTO.DEBITO;
 	}
 	
-	public boolean estaDentroDoIntervalo(Date inicio, Date fim) {
-		return this.dataLancamentoTipoDate.after(inicio) && dataLancamentoTipoDate.before(fim);
-	}
 	
 	//getters and setters 
 	public void setSaldo(BigDecimal saldo) {
