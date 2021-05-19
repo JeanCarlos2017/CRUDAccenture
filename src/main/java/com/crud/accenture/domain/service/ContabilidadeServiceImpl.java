@@ -32,23 +32,23 @@ public class ContabilidadeServiceImpl implements ContabilidadeService {
 	}
 	@Override
 	public ClienteDTO pegarExtratoDoCliente(int idCliente, String diaInicial, String diaFinal) {
-		ClienteDTO modeloContabil =  criarModeloContabil(idCliente);
 		
 		Date dateInicio = this.formatarStringParaDate(diaInicial);
 		Date dateFinal = this.formatarStringParaDate(diaFinal);
 		
-		modeloContabil.filtraOsLivrosPorintervaloDeData(dateInicio, dateFinal);
+		ClienteDTO modeloContabil =  criarModeloContabil(idCliente, dateInicio, dateFinal);
+		
 		return modeloContabil;
 	}
 
 	
-	private ClienteDTO criarModeloContabil(int idCliente) {
+	private ClienteDTO criarModeloContabil(int idCliente, Date dateInicio, Date dateFinal) {
 		Cliente cliente = this.clienteService.buscarCliente(idCliente);
-		List<LivroCaixa> livrosDoCliente = this.livroCaixaRepository.findByCliente(cliente);
-		
+		List<LivroCaixa> livrosDoCliente = this.livroCaixaRepository.
+										findAllLivroCaixaByClienteBetween(cliente, dateInicio, dateFinal);
 		return new ClienteDTO(cliente, livrosDoCliente);
 	}
-	
+
 	private Date formatarStringParaDate(String diaInicial) {
 		SimpleDateFormat formato = new SimpleDateFormat(ContabilidadeServiceImpl.FORMATO_DATA_ENTRADA); 
 		try {
