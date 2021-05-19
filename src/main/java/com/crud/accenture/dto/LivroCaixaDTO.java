@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.crud.accenture.domain.model.LivroCaixa;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class LivroCaixaDTO {
 	private static final char CREDITO = 'C';
@@ -40,14 +41,20 @@ public class LivroCaixaDTO {
 				+ ", valor=" + valor + ", saldo=" + saldo + "]";
 	}
 	
+	@JsonIgnore
 	public boolean isCredito() {
 		return this.tipo == LivroCaixaDTO.CREDITO;
 	}
 	
+	@JsonIgnore
 	public boolean isDebito() {
 		return this.tipo == LivroCaixaDTO.DEBITO;
 	}
-
+	
+	public boolean estaDentroDoIntervalo(Date inicio, Date fim) {
+		return this.dataLancamentoTipoDate.after(inicio) && dataLancamentoTipoDate.before(fim);
+	}
+	
 	//getters and setters 
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
