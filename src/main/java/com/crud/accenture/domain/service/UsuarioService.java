@@ -15,5 +15,5 @@ public interface UsuarioService {
 	
 	List<Usuario> filtrarUsuarioPorNomeEOuEmail(String nome, String email);
 	
-	Usuario login(String login, String senha);
+	String login(String login, String senha);
 }
