@@ -8,8 +8,6 @@ import com.crud.accenture.domain.model.Cliente;
 import com.crud.accenture.domain.model.LivroCaixa;
 
 public class ClienteDTO {
-	private static final char CREDITO = 'C';
-	private static final char DEBITO = 'D';
 	private int id;
 	private String nome;
 	private String cpf_cnpj;
@@ -58,11 +56,11 @@ public class ClienteDTO {
 	
 	private BigDecimal calculaSaldoAtual(BigDecimal saldo, LivroCaixaDTO livro) {
 		
-		if(livro.getTipo() == ClienteDTO.CREDITO) {
+		if(livro.isCredito()) {
 			saldo = saldo.add(livro.getValor());
 		}
 		
-		if(livro.getTipo() == ClienteDTO.DEBITO) {
+		if(livro.isDebito()) {
 			saldo = saldo.subtract(livro.getValor());
 		}
 		return saldo;

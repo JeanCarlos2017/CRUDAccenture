@@ -6,6 +6,9 @@ import java.util.Date;
 import com.crud.accenture.domain.model.LivroCaixa;
 
 public class LivroCaixaDTO {
+	private static final char CREDITO = 'C';
+	private static final char DEBITO = 'D';
+	
 	private Date dataLancamento;
 	private String descricao;
 	private char tipo;
@@ -26,7 +29,14 @@ public class LivroCaixaDTO {
 		return "LivroCaixaDTO [dataLancamento=" + dataLancamento + ", descricao=" + descricao + ", tipo=" + tipo
 				+ ", valor=" + valor + ", saldo=" + saldo + "]";
 	}
-
+	
+	public boolean isCredito() {
+		return this.tipo == LivroCaixaDTO.CREDITO;
+	}
+	
+	public boolean isDebito() {
+		return this.tipo == LivroCaixaDTO.DEBITO;
+	}
 
 	//getters and setters 
 	public void setSaldo(BigDecimal saldo) {
