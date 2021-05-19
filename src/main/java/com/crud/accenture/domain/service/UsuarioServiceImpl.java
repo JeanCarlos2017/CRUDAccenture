@@ -79,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	private Usuario verificaUsuarioAtivo(Usuario usuario) {
-		if(usuario.getStatus() == "A") {
+		if(usuario.isAtivo()) {
 			return usuario;
 		}else {
 			throw new ResourceNotFoundException("Usuário está inativo por favor entre em contato com a central!");

@@ -12,8 +12,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+
 @Entity @Table(name = "USUARIO")
 public class Usuario {
+	private static char ATIVO = 'A';
+	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
@@ -37,14 +40,17 @@ public class Usuario {
 	private String email;
 	
 	@Column(length = 1) @NotNull
-	private String perfil;
+	private char perfil;
 	
 	@Column(length = 1) @NotNull
-	private String status;
-
+	private char status;
+	
 	public Usuario() {}
 
-
+	public boolean isAtivo() {
+		return Character.toUpperCase(this.status) == Usuario.ATIVO;
+	}
+	
 	//getters ans setters 
 	public int getId() {
 		return id;
@@ -94,22 +100,21 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getPerfil() {
+	public char getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(char perfil) {
 		this.perfil = perfil;
 	}
 
-	public String getStatus() {
+	public char getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(char status) {
 		this.status = status;
 	}
-
 
 	public Date getDataCadastro() {
 		return dataCadastro;
