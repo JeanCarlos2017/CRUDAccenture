@@ -75,7 +75,6 @@ public class ClienteCustomFilterRepository {
 	}
 
 	private void resetQueryCustom() {
-		System.out.println("Query: "+this.queryCustom);
 		this.queryCustom= ClienteCustomFilterRepository.baseQuery;	
 		this.operatorQueryCustom= "where ";
 	}
