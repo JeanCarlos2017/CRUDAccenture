@@ -26,15 +26,13 @@ public class ContabilidadeServiceImpl implements ContabilidadeService {
 	}
 
 	@Override
-	public List<LivroCaixa> findByIdCliente(int idCliente) {
+	public List<LivroCaixa> buscaTodosLivrosCaixaPeloIdCliente(int idCliente) {
 		Cliente cliente= this.clienteService.buscarCliente(idCliente);
 		return this.livroCaixaRepository.findByCliente(cliente);
 	}
-
 	@Override
-	public ClienteDTO getStatementCliente(int idCliente, String diaInicial, String diaFinal) {
-		//TODO incluir os filtros de datas
-		ClienteDTO modeloContabil =  criaModeloContabil(idCliente);
+	public ClienteDTO pegarExtratoDoCliente(int idCliente, String diaInicial, String diaFinal) {
+		ClienteDTO modeloContabil =  criarModeloContabil(idCliente);
 		
 		Date dateInicio = this.formatarStringParaDate(diaInicial);
 		Date dateFinal = this.formatarStringParaDate(diaFinal);
@@ -44,7 +42,7 @@ public class ContabilidadeServiceImpl implements ContabilidadeService {
 	}
 
 	
-	private ClienteDTO criaModeloContabil(int idCliente) {
+	private ClienteDTO criarModeloContabil(int idCliente) {
 		Cliente cliente = this.clienteService.buscarCliente(idCliente);
 		List<LivroCaixa> livrosDoCliente = this.livroCaixaRepository.findByCliente(cliente);
 		

@@ -6,7 +6,7 @@ import com.crud.accenture.domain.model.LivroCaixa;
 import com.crud.accenture.dto.ClienteDTO;
 
 public interface ContabilidadeService {
-	List<LivroCaixa> findByIdCliente(int idCliente);
+	List<LivroCaixa> buscaTodosLivrosCaixaPeloIdCliente(int idCliente);
 	
-	ClienteDTO getStatementCliente(int idCliente, String diaInicial, String diaFinal);
+	ClienteDTO pegarExtratoDoCliente(int idCliente, String diaInicial, String diaFinal);
 }

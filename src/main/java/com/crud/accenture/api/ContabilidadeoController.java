@@ -26,7 +26,7 @@ public class ContabilidadeoController {
 	
 	@GetMapping("/findAllLivrosClienteById/{idCliente}")
 	public ResponseEntity<List<LivroCaixa>> findAllLivrosClienteById(@PathVariable int idCliente){
-		return new ResponseEntity<List<LivroCaixa>>(this.contabilidadeService.findByIdCliente(idCliente), HttpStatus.OK);
+		return new ResponseEntity<List<LivroCaixa>>(this.contabilidadeService.buscaTodosLivrosCaixaPeloIdCliente(idCliente), HttpStatus.OK);
 	}
 	
 	@GetMapping
@@ -35,7 +35,7 @@ public class ContabilidadeoController {
 			@RequestParam(value = "data_inicial", required = false) String dataInicial,
 			@RequestParam(value = "data_final", required = false) String dataFinal
 		) {
-		return new ResponseEntity<ClienteDTO>(this.contabilidadeService.getStatementCliente(id, dataInicial, dataFinal), 
+		return new ResponseEntity<ClienteDTO>(this.contabilidadeService.pegarExtratoDoCliente(id, dataInicial, dataFinal), 
 				HttpStatus.OK);
 	}
 }
