@@ -21,14 +21,14 @@ public class LivroCaixaDTO {
 	public LivroCaixaDTO(LivroCaixa livroCaixa) {
 		super();
 		this.dataLancamentoTipoDate = livroCaixa.getDataCadastro();
-		this.formatarDataLancamentoParaFormatoDataSaida();
+		this.formatarDataLancamentoParaFormatoDeSaida();
 		this.descricao = livroCaixa.getDescricao();
 		this.tipo = Character.toUpperCase(livroCaixa.getTipo());
 		this.valor = livroCaixa.getValor();
 	}
 	
 	
-	private void formatarDataLancamentoParaFormatoDataSaida() {
+	private void formatarDataLancamentoParaFormatoDeSaida() {
 		SimpleDateFormat formatador = new SimpleDateFormat(LivroCaixaDTO.FORMATO_DATA_SAIDA);	
 		this.dataLancamento = formatador.format(dataLancamentoTipoDate);
 	}
@@ -56,11 +56,6 @@ public class LivroCaixaDTO {
 	public BigDecimal getValor() {
 		return valor;
 	}
-
-	public Date getDataLancamentoTipoDate() {
-		return dataLancamentoTipoDate;
-	}
-
 
 	public String getDataLancamento() {
 		return dataLancamento;
