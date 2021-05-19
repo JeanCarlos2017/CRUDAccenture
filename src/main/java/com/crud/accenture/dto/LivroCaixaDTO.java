@@ -1,6 +1,7 @@
 package com.crud.accenture.dto;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.crud.accenture.domain.model.LivroCaixa;
@@ -8,8 +9,10 @@ import com.crud.accenture.domain.model.LivroCaixa;
 public class LivroCaixaDTO {
 	private static final char CREDITO = 'C';
 	private static final char DEBITO = 'D';
+	private static final String FORMATO_DATA_SAIDA = "dd/MM/yyyy";
 	
-	private Date dataLancamento;
+	private Date dataLancamentoTipoDate;
+	private String dataLancamento;
 	private String descricao;
 	private char tipo;
 	private BigDecimal valor; 
@@ -17,13 +20,20 @@ public class LivroCaixaDTO {
 	
 	public LivroCaixaDTO(LivroCaixa livroCaixa) {
 		super();
-		this.dataLancamento = livroCaixa.getDataCadastro();
+		this.dataLancamentoTipoDate = livroCaixa.getDataCadastro();
+		this.formatarDataLancamentoParaFormatoDataSaida();
 		this.descricao = livroCaixa.getDescricao();
 		this.tipo = Character.toUpperCase(livroCaixa.getTipo());
 		this.valor = livroCaixa.getValor();
 	}
 	
 	
+	private void formatarDataLancamentoParaFormatoDataSaida() {
+		SimpleDateFormat formatador = new SimpleDateFormat(LivroCaixaDTO.FORMATO_DATA_SAIDA);	
+		this.dataLancamento = formatador.format(dataLancamentoTipoDate);
+	}
+
+
 	@Override
 	public String toString() {
 		return "LivroCaixaDTO [dataLancamento=" + dataLancamento + ", descricao=" + descricao + ", tipo=" + tipo
@@ -47,7 +57,12 @@ public class LivroCaixaDTO {
 		return valor;
 	}
 
-	public Date getDataLancamento() {
+	public Date getDataLancamentoTipoDate() {
+		return dataLancamentoTipoDate;
+	}
+
+
+	public String getDataLancamento() {
 		return dataLancamento;
 	}
 
