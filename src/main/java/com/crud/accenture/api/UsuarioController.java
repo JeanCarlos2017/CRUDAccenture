@@ -38,7 +38,7 @@ public class UsuarioController {
 	public ResponseEntity<List<Usuario>> findPersonByCustom(@RequestParam(value = "nome", required = false) String nome,
 			@RequestParam(value = "email", required = false) String email) {
 		return new ResponseEntity<List<Usuario>>(
-				this.usuarioService.filtro(nome, email) 
+				this.usuarioService.filtrarUsuarioPorNomeEOuEmail(nome, email) 
 				 .stream()
 				 .collect(Collectors.toList()), HttpStatus.OK
 		);

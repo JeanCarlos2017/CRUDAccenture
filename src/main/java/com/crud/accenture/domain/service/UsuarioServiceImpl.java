@@ -56,7 +56,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	public List<Usuario> filtro(String nome, String email) {
+	public List<Usuario> filtrarUsuarioPorNomeEOuEmail(String nome, String email) {
 		return this.customRepository.findUsuario(nome, email);
 	}
 

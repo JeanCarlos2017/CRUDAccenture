@@ -13,7 +13,7 @@ public interface UsuarioService {
 	
 	Usuario buscaUsuario(int idUsuario);
 	
-	List<Usuario> filtro(String nome, String email);
+	List<Usuario> filtrarUsuarioPorNomeEOuEmail(String nome, String email);
 	
 	Usuario login(String login, String senha);
 }
