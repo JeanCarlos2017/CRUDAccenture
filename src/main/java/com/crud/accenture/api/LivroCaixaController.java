@@ -28,22 +28,22 @@ public class LivroCaixaController {
 	
 	@GetMapping("/findById/{id_livro_caixa}")
 	public ResponseEntity<LivroCaixa> findById(@PathVariable int id_livro_caixa){
-		return new ResponseEntity<LivroCaixa>(this.livroCaixaService.findById(id_livro_caixa), HttpStatus.OK);
+		return new ResponseEntity<LivroCaixa>(this.livroCaixaService.buscarLivroPorId(id_livro_caixa), HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity<LivroCaixa> addLivroCaixa(@Valid @RequestBody LivroCaixa livroCaixa){
-		return new ResponseEntity<LivroCaixa>(this.livroCaixaService.addLivroCaixa(livroCaixa), HttpStatus.CREATED);
+		return new ResponseEntity<LivroCaixa>(this.livroCaixaService.adicionarLivroCaixa(livroCaixa), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
 	public ResponseEntity<LivroCaixa> updateLivroCaixa(@Valid @RequestBody LivroCaixa livroCaixa){
-		return new ResponseEntity<LivroCaixa>(this.livroCaixaService.updateLivroCaixa(livroCaixa), HttpStatus.ACCEPTED);
+		return new ResponseEntity<LivroCaixa>(this.livroCaixaService.alterarLivroCaixa(livroCaixa), HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/deleteById/{id_livro_caixa}")
 	public ResponseEntity<Void> deleteById(@PathVariable int id_livro_caixa){
-		this.livroCaixaService.deleteLivroCaixa(id_livro_caixa);
+		this.livroCaixaService.deletarLivroCaixa(id_livro_caixa);
 		return ResponseEntity.noContent().build();
 	}
 	

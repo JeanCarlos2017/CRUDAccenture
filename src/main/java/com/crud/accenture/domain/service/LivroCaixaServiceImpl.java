@@ -16,12 +16,12 @@ public class LivroCaixaServiceImpl implements LivroCaixaService {
 	}
 
 	@Override
-	public LivroCaixa addLivroCaixa(LivroCaixa livroCaixa) {
+	public LivroCaixa adicionarLivroCaixa(LivroCaixa livroCaixa) {
 		return this.livroCaixaRepository.save(livroCaixa);
 	}
 
 	@Override
-	public LivroCaixa updateLivroCaixa(LivroCaixa livroCaixa) {
+	public LivroCaixa alterarLivroCaixa(LivroCaixa livroCaixa) {
 		if(this.livroCaixaRepository.existsById(livroCaixa.getId())) {
 			return this.livroCaixaRepository.save(livroCaixa);
 		}else {
@@ -33,7 +33,7 @@ public class LivroCaixaServiceImpl implements LivroCaixaService {
 		throw new ResourceNotFoundException("Id do livro caixa não  encontrado, por favor tente novamente");
 	}
 	@Override
-	public void deleteLivroCaixa(int idLivroCaixa) {
+	public void deletarLivroCaixa(int idLivroCaixa) {
 		if(this.livroCaixaRepository.existsById(idLivroCaixa)) {
 			 this.livroCaixaRepository.deleteById(idLivroCaixa);
 		}else {
@@ -42,7 +42,7 @@ public class LivroCaixaServiceImpl implements LivroCaixaService {
 	}
 
 	@Override
-	public LivroCaixa findById(int idLivroCaixa) {
+	public LivroCaixa buscarLivroPorId(int idLivroCaixa) {
 		if(this.livroCaixaRepository.existsById(idLivroCaixa)) {
 			return this.livroCaixaRepository.findById(idLivroCaixa).get();
 		}else {

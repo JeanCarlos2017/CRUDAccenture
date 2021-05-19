@@ -4,13 +4,13 @@ import com.crud.accenture.domain.model.LivroCaixa;
 
 public interface LivroCaixaService {
 	
-	LivroCaixa addLivroCaixa(LivroCaixa livroCaixa);
+	LivroCaixa adicionarLivroCaixa(LivroCaixa livroCaixa);
 	
-	LivroCaixa updateLivroCaixa(LivroCaixa livroCaixa);
+	LivroCaixa alterarLivroCaixa(LivroCaixa livroCaixa);
 	
-	void deleteLivroCaixa(int idLivroCaixa);
+	void deletarLivroCaixa(int idLivroCaixa);
 	
-	LivroCaixa findById(int idLivroCaixa);
+	LivroCaixa buscarLivroPorId(int idLivroCaixa);
 	
 	
 	
