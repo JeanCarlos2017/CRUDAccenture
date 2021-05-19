@@ -32,7 +32,23 @@ public class ContabilidadeServiceImpl implements ContabilidadeService {
 	}
 	@Override
 	public ClienteDTO pegarExtratoDoCliente(int idCliente, String diaInicial, String diaFinal) {
+		if(this.filtroExtratoPresente(diaInicial, diaFinal)) {
+			return this.pegarExtratoComFiltro(idCliente, diaInicial, diaFinal);
+		}else {
+			return this.pegarExtratoSemFiltro(idCliente);
+		}
 		
+	}
+
+	private boolean filtroExtratoPresente(String diaInicial, String diaFinal) {
+		return this.verificaDia(diaInicial) && this.verificaDia(diaFinal);
+	}
+
+	private boolean verificaDia(String dia) {
+		return !(dia == null || dia.isBlank());
+	}
+
+	private ClienteDTO pegarExtratoComFiltro(int idCliente, String diaInicial, String diaFinal) {
 		Date dateInicio = this.formatarStringParaDate(diaInicial);
 		Date dateFinal = this.formatarStringParaDate(diaFinal);
 		
@@ -40,15 +56,7 @@ public class ContabilidadeServiceImpl implements ContabilidadeService {
 		
 		return modeloContabil;
 	}
-
 	
-	private ClienteDTO criarModeloContabil(int idCliente, Date dateInicio, Date dateFinal) {
-		Cliente cliente = this.clienteService.buscarCliente(idCliente);
-		List<LivroCaixa> livrosDoCliente = this.livroCaixaRepository.
-										findAllLivroCaixaByClienteBetween(cliente, dateInicio, dateFinal);
-		return new ClienteDTO(cliente, livrosDoCliente);
-	}
-
 	private Date formatarStringParaDate(String diaInicial) {
 		SimpleDateFormat formato = new SimpleDateFormat(ContabilidadeServiceImpl.FORMATO_DATA_ENTRADA); 
 		try {
@@ -59,5 +67,20 @@ public class ContabilidadeServiceImpl implements ContabilidadeService {
 		}
 		
 	}
+	
+	private ClienteDTO criarModeloContabil(int idCliente, Date dateInicio, Date dateFinal) {
+		Cliente cliente = this.clienteService.buscarCliente(idCliente);
+		List<LivroCaixa> livrosDoCliente = this.livroCaixaRepository.
+										findAllLivroCaixaByClienteBetween(cliente, dateInicio, dateFinal);
+		return new ClienteDTO(cliente, livrosDoCliente);
+	}
+	
+	private ClienteDTO pegarExtratoSemFiltro(int idCliente) {
+		Cliente cliente = this.clienteService.buscarCliente(idCliente);
+		List<LivroCaixa> livrosDoCliente = this.livroCaixaRepository.findByCliente(cliente);
+		return new ClienteDTO(cliente, livrosDoCliente);
+	}
+
+	
 
 }
