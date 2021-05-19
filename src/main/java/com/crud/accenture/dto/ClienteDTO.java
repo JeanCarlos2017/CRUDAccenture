@@ -22,7 +22,7 @@ public class ClienteDTO {
 		this.cpf_cnpj = cliente.getCpfCnpj();
 		this.telefone = cliente.getTelefone();
 		this.setContabil(todosLivroCaixaDoCliente);
-		this.setSaldoDeTodosLivroContabil();
+		this.setSaldoCliente();
 	}
 	
 	private void setContabil(List<LivroCaixa> todosLivroCaixaDoCliente) {
@@ -31,9 +31,9 @@ public class ClienteDTO {
 		}
 	}
 	
-	private void setSaldoDeTodosLivroContabil() {
+	private void setSaldoCliente() {
 		this.ordenaLivroCaixaPorData();
-		this.setSaldoDeCadaLivroContabil();
+		this.setSaldoDeTodosLivrosCaixa();
 		this.filtraOsLivrosPorintervaloDeData();
 	}
 
@@ -43,19 +43,21 @@ public class ClienteDTO {
 		this.contabil.sort( (livro1, livro2) -> livro1.getDataLancamento().compareTo(livro2.getDataLancamento()));
 	}
 
-	private void setSaldoDeCadaLivroContabil() {
-		// TODO Auto-generated method stub
-		//tem que ir calculando o saldo em cada livro 
+	private void setSaldoDeTodosLivrosCaixa() {
 		BigDecimal saldo = new BigDecimal("0.00");
 		for(LivroCaixaDTO livro: this.contabil) {
-			saldo= this.calculaSaldoAtual(saldo, livro);
-			livro.setSaldo(saldo);
+			saldo = setSaldoDeCadaLivroCaixa(saldo, livro);
 		}
 		
 	}
+
+	private BigDecimal setSaldoDeCadaLivroCaixa(BigDecimal saldo, LivroCaixaDTO livro) {
+		saldo= this.calculaSaldoLivroAtual(saldo, livro);
+		livro.setSaldo(saldo);
+		return saldo;
+	}
 	
-	private BigDecimal calculaSaldoAtual(BigDecimal saldo, LivroCaixaDTO livro) {
-		
+	private BigDecimal calculaSaldoLivroAtual(BigDecimal saldo, LivroCaixaDTO livro) {
 		if(livro.isCredito()) {
 			saldo = saldo.add(livro.getValor());
 		}
@@ -66,7 +68,7 @@ public class ClienteDTO {
 		return saldo;
 	}
 
-	private void filtraOsLivrosPorintervaloDeData() {
+	public void filtraOsLivrosPorintervaloDeData() {
 		// TODO Auto-generated method stub
 		//ver como implementa esse método, por que ele precisa das datas
 		
@@ -93,8 +95,4 @@ public class ClienteDTO {
 		return contabil;
 	}
 
-	
-	
-	 
-	
 }
