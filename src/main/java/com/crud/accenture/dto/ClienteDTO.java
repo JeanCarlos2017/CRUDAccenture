@@ -1,5 +1,6 @@
 package com.crud.accenture.dto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import com.crud.accenture.domain.model.Cliente;
 import com.crud.accenture.domain.model.LivroCaixa;
 
 public class ClienteDTO {
+	private static final char CREDITO = 'C';
+	private static final char DEBITO = 'D';
 	private int id;
 	private String nome;
 	private String cpf_cnpj;
@@ -45,9 +48,26 @@ public class ClienteDTO {
 	private void setSaldoDeCadaLivroContabil() {
 		// TODO Auto-generated method stub
 		//tem que ir calculando o saldo em cada livro 
+		BigDecimal saldo = new BigDecimal("0.00");
+		for(LivroCaixaDTO livro: this.contabil) {
+			saldo= this.calculaSaldoAtual(saldo, livro);
+			livro.setSaldo(saldo);
+		}
 		
 	}
 	
+	private BigDecimal calculaSaldoAtual(BigDecimal saldo, LivroCaixaDTO livro) {
+		
+		if(livro.getTipo() == ClienteDTO.CREDITO) {
+			saldo = saldo.add(livro.getValor());
+		}
+		
+		if(livro.getTipo() == ClienteDTO.DEBITO) {
+			saldo = saldo.subtract(livro.getValor());
+		}
+		return saldo;
+	}
+
 	private void filtraOsLivrosPorintervaloDeData() {
 		// TODO Auto-generated method stub
 		//ver como implementa esse método, por que ele precisa das datas

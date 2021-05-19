@@ -16,7 +16,7 @@ public class LivroCaixaDTO {
 		super();
 		this.dataLancamento = livroCaixa.getDataCadastro();
 		this.descricao = livroCaixa.getDescricao();
-		this.tipo = livroCaixa.getTipo();
+		this.tipo = Character.toUpperCase(livroCaixa.getTipo());
 		this.valor = livroCaixa.getValor();
 	}
 	
