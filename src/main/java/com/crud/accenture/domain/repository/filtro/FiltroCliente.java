@@ -68,7 +68,6 @@ public class FiltroCliente {
 	}
 
 	private boolean verificaCampoFiltro(String nomeCampo) {
-		System.out.println("Campo: " + nomeCampo + " - valor: " +  this.hashCamposFiltro.get(nomeCampo));
 		return StringUtils.hasText(this.hashCamposFiltro.get(nomeCampo));
 	}
 	
