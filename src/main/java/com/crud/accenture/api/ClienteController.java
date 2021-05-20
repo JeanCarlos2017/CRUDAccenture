@@ -51,20 +51,7 @@ public class ClienteController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/filter/custom")
-	public ResponseEntity<List<Cliente>> findPersonByCustom(
-			@RequestParam(value = "nome", required = false) String nome,
-			@RequestParam(value = "cpfCnpj", required = false) String cpfCnpj,
-			@RequestParam(value = "cidade", required = false) String cidade,
-			@RequestParam(value = "uf", required = false) String uf
-		) {
-		return new ResponseEntity<List<Cliente>>(
-				this.clienteService.filtrarCliente(nome, cpfCnpj, cidade, uf)
-				 .stream()
-				 .collect(Collectors.toList()), HttpStatus.OK
-		);
-	}
-	
+		
 	@GetMapping("/filter/custom/specification")
 	public ResponseEntity<List<Cliente>> findPersonByFilterCustom(
 			@RequestParam(value = "nome", required = false) String nome,

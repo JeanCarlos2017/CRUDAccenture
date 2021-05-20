@@ -7,19 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.crud.accenture.api.exception.ResourceNotFoundException;
 import com.crud.accenture.domain.model.Cliente;
-import com.crud.accenture.domain.repository.ClienteCustomFilterRepository;
 import com.crud.accenture.domain.repository.ClienteRepository;
 import com.crud.accenture.domain.repository.filtro.FiltroCliente;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
 	private ClienteRepository clienteRepository;
-	private ClienteCustomFilterRepository clienteCustomFilterRepository;
 	
-	public ClienteServiceImpl(ClienteRepository clienteRepository,
-			ClienteCustomFilterRepository clienteCustomFilterRepository) {
+	public ClienteServiceImpl(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
-		this.clienteCustomFilterRepository = clienteCustomFilterRepository;
 	}
 
 	@Override
@@ -58,12 +54,6 @@ public class ClienteServiceImpl implements ClienteService{
 			this.throwIdNotFound();
 		}
 	}
-
-	@Override
-	public List<Cliente> filtrarCliente(String nome, String cpfCnpj, String cidade, String uf) {
-		return this.clienteCustomFilterRepository.filtrarCliente(nome, cpfCnpj, cidade, uf);
-	}
-
 	@Override
 	public List<Cliente> filtrarClienteComSpecification(String nome, String cpfCnpj, String cidade, String uf) {
 		FiltroCliente filtroCliente= new FiltroCliente(nome, cpfCnpj, cidade, uf);
