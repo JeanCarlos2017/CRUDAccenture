@@ -9,6 +9,7 @@ import com.crud.accenture.api.exception.ResourceNotFoundException;
 import com.crud.accenture.domain.model.Cliente;
 import com.crud.accenture.domain.repository.ClienteCustomFilterRepository;
 import com.crud.accenture.domain.repository.ClienteRepository;
+import com.crud.accenture.domain.repository.filtro.FiltroCliente;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
@@ -61,6 +62,12 @@ public class ClienteServiceImpl implements ClienteService{
 	@Override
 	public List<Cliente> filtrarCliente(String nome, String cpfCnpj, String cidade, String uf) {
 		return this.clienteCustomFilterRepository.filtrarCliente(nome, cpfCnpj, cidade, uf);
+	}
+
+	@Override
+	public List<Cliente> filtrarClienteComSpecification(String nome, String cpfCnpj, String cidade, String uf) {
+		FiltroCliente filtroCliente= new FiltroCliente(nome, cpfCnpj, cidade, uf);
+		return this.clienteRepository.findAll(filtroCliente.toSpec());
 	}
 	
 }
