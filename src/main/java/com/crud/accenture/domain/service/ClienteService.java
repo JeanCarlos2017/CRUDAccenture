@@ -14,4 +14,6 @@ public interface ClienteService {
 	Cliente buscarCliente(int idCliente);
 	
 	List<Cliente> filtrarCliente(String nome, String cpfCnpj, String cidade, String uf);
+
+	List<Cliente> filtrarClienteComSpecification(String nome, String cpfCnpj, String cidade, String uf);
 }
