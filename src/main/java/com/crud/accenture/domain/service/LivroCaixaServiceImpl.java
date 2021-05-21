@@ -1,5 +1,6 @@
 package com.crud.accenture.domain.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crud.accenture.api.exception.ResourceNotFoundException;
@@ -9,6 +10,8 @@ import com.crud.accenture.domain.repository.LivroCaixaRepository;
 @Service
 public class LivroCaixaServiceImpl implements LivroCaixaService {
 	private LivroCaixaRepository livroCaixaRepository;
+	@Autowired
+	private ClienteService clienteService;
 	
 	public LivroCaixaServiceImpl(LivroCaixaRepository livroCaixaRepository, ClienteService clienteService) {
 		super();
@@ -17,6 +20,7 @@ public class LivroCaixaServiceImpl implements LivroCaixaService {
 
 	@Override
 	public LivroCaixa adicionarLivroCaixa(LivroCaixa livroCaixa) {
+		livroCaixa.setCliente(this.clienteService.buscarCliente(livroCaixa.getCliente().getId()));
 		return this.livroCaixaRepository.save(livroCaixa);
 	}
 
