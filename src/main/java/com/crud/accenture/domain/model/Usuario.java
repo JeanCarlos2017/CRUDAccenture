@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity @Table(name = "USUARIO")
 public class Usuario {
@@ -46,7 +48,8 @@ public class Usuario {
 	private char status;
 	
 	public Usuario() {}
-
+	
+	@JsonIgnore
 	public boolean isAtivo() {
 		return Character.toUpperCase(this.status) == Usuario.ATIVO;
 	}
