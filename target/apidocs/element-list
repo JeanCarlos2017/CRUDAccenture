@@ -1,0 +1,8 @@
+com.crud.accenture
+com.crud.accenture.api
+com.crud.accenture.api.exception
+com.crud.accenture.domain.model
+com.crud.accenture.domain.repository
+com.crud.accenture.domain.repository.filtro
+com.crud.accenture.domain.service
+com.crud.accenture.dto
