@@ -89,4 +89,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private Usuario throwIdNotFound() {
 		throw new ResourceNotFoundException("Id do usuário não  encontrado, por favor tente novamente");
 	}
+
+	@Override
+	public List<Usuario> buscarTodosUsuarios() {
+		return this.usuarioRepository.findAll();
+	}
 }
