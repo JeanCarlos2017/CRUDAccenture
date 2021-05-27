@@ -1,5 +1,6 @@
 package com.crud.accenture.api;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,15 +19,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.accenture.domain.model.Usuario;
+import com.crud.accenture.domain.service.ReportService;
 import com.crud.accenture.domain.service.UsuarioService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
 	private UsuarioService usuarioService;
+	private ReportService reportService;
 	
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, ReportService reportService) {
+		super();
 		this.usuarioService = usuarioService;
+		this.reportService = reportService;
 	}
 
 	@PostMapping
@@ -65,6 +72,11 @@ public class UsuarioController {
 	public ResponseEntity<String> login(@RequestParam(value = "login", required = false) String login,
 			@RequestParam(value = "senha", required = false) String senha) {
 		return new ResponseEntity<String>(this.usuarioService.login(login, senha), HttpStatus.OK);
+	}
+	
+	 @GetMapping("/report/{format}")
+	public ResponseEntity<String> generateReport(@PathVariable String format) throws FileNotFoundException, JRException{
+		return new ResponseEntity<String>(this.reportService.exportReport(format), HttpStatus.OK);
 	}
 	
 }
